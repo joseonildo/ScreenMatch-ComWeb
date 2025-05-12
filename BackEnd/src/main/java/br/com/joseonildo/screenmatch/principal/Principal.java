@@ -18,6 +18,7 @@ public class Principal {
     private final String ENDERECO = "http://www.omdbapi.com/?&t=";
     private List<Serie> series = new ArrayList<>();
     private final SerieRepository repositorio;
+    private String resultado = "";
 
     public Principal(SerieRepository repositorio) {
         this.repositorio = repositorio;
@@ -110,29 +111,31 @@ public class Principal {
         } while (true);
     }
 
-    private void listarSeriesCadastradas(boolean resumo, boolean top5) {
+    public String listarSeriesCadastradas(boolean resumo, boolean top5) {
         series = repositorio.findAll();
+        resultado = "";
         if (resumo) {
-            System.out.println("\nSéries encontradas no banco de dados:\n");
+            resultado += "\nSéries encontradas no banco de dados:\n";
             series.stream()
                     .sorted(Comparator.comparing(Serie::getId))
                     .forEach(s ->
-                            System.out.println(s.getId() +
+                            resultado += s.getId() +
                                     " - " + s.getTitulo() +
                                     " - Temporadas: " + s.getTotalTemporadas() +
-                                    " - Avaliação: " + s.getAvaliacao())
+                                    " - Avaliação: " + s.getAvaliacao()
                     );
         } else if (top5){
-            System.out.println("\nTOP 5 Séries encontradas no banco de dados:");
+            resultado += "\nTOP 5 Séries encontradas no banco de dados:";
             List<Serie> serieTop5 = repositorio.findTop5ByOrderByAvaliacaoDesc();
             serieTop5.forEach(s ->
-                    System.out.println(s.getTitulo() + " - Avaliação: " + s.getAvaliacao()));
+                    resultado += s.getTitulo() + " - Avaliação: " + s.getAvaliacao());
         } else {
             series = series.stream()
                     .sorted(Comparator.comparing(Serie::getGenero))
                     .toList();
-            series.forEach(s -> ExibeDados.exibeSerie(s,false));
+            series.forEach(s -> resultado += ExibeDados.exibeSerie(s,false));
         }
+        return resultado;
     }
 
     private void listarEpisodiosPorSerie(Boolean modificarSerie) {

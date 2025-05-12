@@ -1,4 +1,4 @@
-package br.com.joseonildo.screenmatch;
+/*package br.com.joseonildo.screenmatch;
 import br.com.joseonildo.screenmatch.principal.Principal;
 import br.com.joseonildo.screenmatch.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 
 @SpringBootApplication
-public class ScreenmatchApplication implements CommandLineRunner {
+public class ScreenmatchApplicationSemWeb implements CommandLineRunner {
 	@Autowired
 	private SerieRepository repositorio;
 
 	public static void main(String[] args) {
-		SpringApplication.run(ScreenmatchApplication.class, args);
+		SpringApplication.run(ScreenmatchApplicationSemWeb.class, args);
 	}
 
 	@Override
@@ -26,4 +26,4 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 
 	}
-}
+}*/

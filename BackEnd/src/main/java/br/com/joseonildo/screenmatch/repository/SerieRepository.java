@@ -40,4 +40,6 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
    @Query("SELECT s FROM Serie s WHERE YEAR(s.dataLancamento) >= :anoLancamento ORDER BY s.dataLancamento ASC")
    List<Serie> seriePorAno(int anoLancamento);
 
+   List<Serie> findTop5ByOrderByDataLancamentoDesc();
+
 }
