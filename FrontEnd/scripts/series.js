@@ -17,18 +17,23 @@ function carregarTemporadas() {
             optionDefault.value = '';
             optionDefault.textContent = 'Selecione a temporada'
             listaTemporadas.appendChild(optionDefault); 
+
+            const optionTodos = document.createElement('option');
+            optionTodos.value = 'todas';
+            optionTodos.textContent = 'Todas as temporadas'
+            listaTemporadas.appendChild(optionTodos);
            
+            const optionTop = document.createElement('option');
+            optionTop.value = 'top5';
+            optionTop.textContent = 'Top 5 episódios'
+            listaTemporadas.appendChild(optionTop); 
+            
             temporadasUnicas.forEach(temporada => {
                 const option = document.createElement('option');
                 option.value = temporada;
                 option.textContent = temporada;
                 listaTemporadas.appendChild(option);
-            });
-
-            const optionTodos = document.createElement('option');
-            optionTodos.value = 'todas';
-            optionTodos.textContent = 'Todas as temporadas'
-            listaTemporadas.appendChild(optionTodos); 
+            });             
         })
         .catch(error => {
             console.error('Erro ao obter temporadas:', error);
@@ -49,7 +54,7 @@ function carregarEpisodios() {
 
                 const listaHTML = episodiosTemporadaAtual.map(serie => `
                     <li>
-                        ${serie.numeroEpisodio} - ${serie.titulo}
+                        ${serie.numeroEpisodio} - ${serie.titulo} --- ${serie.avaliacao}
                     </li>
                 `).join('');
                 ul.innerHTML = listaHTML;

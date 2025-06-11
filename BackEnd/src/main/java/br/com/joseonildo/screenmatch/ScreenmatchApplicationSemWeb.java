@@ -1,4 +1,4 @@
-/*package br.com.joseonildo.screenmatch;
+package br.com.joseonildo.screenmatch;
 import br.com.joseonildo.screenmatch.principal.Principal;
 import br.com.joseonildo.screenmatch.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +26,4 @@ public class ScreenmatchApplicationSemWeb implements CommandLineRunner {
 
 
 	}
-}*/
+}

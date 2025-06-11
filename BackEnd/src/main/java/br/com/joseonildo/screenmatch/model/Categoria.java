@@ -5,7 +5,7 @@ public enum Categoria {
     ANIMACAO("Animation", "Animação"),
     AVENTURA("Adventure", "Aventura"),
     ROMANCE("Romance", "Romance"),
-    COMEDIA("Comedy", "Comedia"),
+    COMEDIA("Comedy", "Comédia"),
     DRAMA("Drama", "Drama"),
     CRIME("Crime", "Crime");
 

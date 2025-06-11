@@ -14,7 +14,10 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
    List<Serie> findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(String nomeAtor, Double avaliacao);
 
-   @Query("SELECT s FROM Serie s WHERE s.atores ILIKE %:nomeAtor% AND s.avaliacao >= :avaliacao")
+   @Query("SELECT s FROM Serie s " +
+           "WHERE s.atores " +
+           "ILIKE %:nomeAtor% " +
+           "AND s.avaliacao >= :avaliacao")
    List<Serie> seriePorAtorEAvaliacao(String nomeAtor, Double avaliacao);
 
    List<Serie> findTop5ByOrderByAvaliacaoDesc();
@@ -25,21 +28,52 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
    List<Serie> findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(int totalTemporadas, double avaliacao);
 
-   @Query("SELECT s FROM Serie s WHERE s.totalTemporadas <= :totalTemporadas AND s.avaliacao >= :avaliacao")
+   @Query("SELECT s FROM Serie s " +
+           "WHERE s.totalTemporadas <= :totalTemporadas " +
+           "AND s.avaliacao >= :avaliacao")
    List<Serie> seriesPorTemporadaEAvaliacao(int totalTemporadas, double avaliacao);
 
-   @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE e.titulo ILIKE %:trechoEpisodio%")
+   @Query("SELECT e FROM Serie s " +
+           "JOIN s.episodios e " +
+           "WHERE e.titulo " +
+           "ILIKE %:trechoEpisodio%")
    List<Episodio> episodioPorTrecho(String trechoEpisodio);
 
-   @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie ORDER BY e.avaliacao DESC LIMIT 5")
+   @Query("SELECT e FROM Serie s " +
+           "JOIN s.episodios e " +
+           "WHERE s = :serie " +
+           "ORDER BY e.avaliacao DESC LIMIT 5")
    List<Episodio> top5episodiosPorSerie(Serie serie);
 
-   @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie AND YEAR(e.dataLancamento) >= :anoLancamento")
+   @Query("SELECT e FROM Serie s " +
+           "JOIN s.episodios e " +
+           "WHERE s = :serie " +
+           "AND YEAR(e.dataLancamento) >= :anoLancamento")
    List<Episodio> episodiosPorSerieEAno(Serie serie, int anoLancamento);
 
-   @Query("SELECT s FROM Serie s WHERE YEAR(s.dataLancamento) >= :anoLancamento ORDER BY s.dataLancamento ASC")
+   @Query("SELECT s FROM Serie s " +
+           "WHERE YEAR(s.dataLancamento) >= :anoLancamento " +
+           "ORDER BY s.dataLancamento ASC")
    List<Serie> seriePorAno(int anoLancamento);
 
-   List<Serie> findTop5ByOrderByDataLancamentoDesc();
+   List<Serie> findTop5ByOrderByEpisodiosDataLancamentoDesc();
+
+   @Query("SELECT s FROM Serie s " +
+           "JOIN s.episodios e " +
+           "GROUP BY s " +
+           "ORDER BY MAX(e.dataLancamento) DESC LIMIT 5")
+   List<Serie> encontrarEpisodiosMaisRecentes();
+
+   @Query("SELECT e FROM Serie s " +
+           "JOIN s.episodios e " +
+           "WHERE s.id = :id " +
+           "AND e.temporada = :numero")
+   List<Episodio> ObterEpisodiosPorTemporada(Long id, Long numero);
+
+   @Query("SELECT e FROM Serie s " +
+           "JOIN s.episodios e " +
+           "WHERE s.id = :id " +
+           "ORDER BY e.avaliacao DESC LIMIT 5")
+   List<Episodio> top5episodiosPorSerie(Long id);
 
 }
